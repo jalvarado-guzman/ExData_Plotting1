@@ -1,0 +1,17 @@
+# To load the function to read the data contained in the file
+source('Rscript/Load_Data.R')
+# Read the data, create a plot and save the plot to the figure directory
+data<-getLines()
+png('figure/plot4.png',480,480,'px')
+  marOriginal<-par('mar')
+  par(mfrow=c(2,2),mar=c(4,4,2,1))
+    plot(data$Date_Time,data$Global_active_power,xlab='',ylab='Global Active Power',type='l')
+    plot(data$Date_Time,data$Voltage,ylab='Voltage',xlab='datetime',type='l')
+    plot(data$Date_Time,data$Sub_metering_1,type = 'n',ylab='Energy sub metering',xlab='')
+    lines(data$Date_Time,data$Sub_metering_1)
+    lines(data$Date_Time,data$Sub_metering_2,col='red')
+    lines(data$Date_Time,data$Sub_metering_3,col='blue')
+    legend('topright',legend = c('Sub metering 1','Sub metering 2','Sub metering 3'),col=c('black','red','blue'),lty=1,bty = 'n')
+    plot(data$Date_Time,data$Global_reactive_power,xlab='datetime',type='l')
+  par(mfrow=c(1,1),mar=marOriginal)
+dev.off()
